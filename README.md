@@ -1,4 +1,4 @@
-v
+Linux system programming
 ---
 
 ## 1️⃣ File Operations
@@ -8,9 +8,53 @@ Basic file handling programs using system calls like `open()`, `read()`, `write(
 <details>
 <summary>Click to expand</summary>
 
-- 01_create_hello_file.c
-- 02_read_file_contents.c  
-- 04_check_file_exists.c  
+## 📂 1️⃣ File Operations (Click each file to view Q&A)
+
+<details>
+<summary><strong>01_create_hello_file.c</strong></summary>
+
+**📝 Question:**  
+Write a program to create a file and write "Hello, World!" into it.
+
+**✅ Answer:**  
+Use `open()` with `O_CREAT | O_WRONLY | O_TRUNC` and permissions `0644`.  
+Write using `write()`, then close using `close()`.
+
+</details>
+
+<details>
+<summary><strong>02_read_file_contents.c</strong></summary>
+
+**📝 Question:**  
+Read and print file content to console.
+
+**✅ Answer:**  
+Use `open()` to open the file, `read()` into a buffer, null-terminate it, and print using `printf()`.
+
+</details>
+
+<details>
+<summary><strong>04_check_file_exists.c</strong></summary>
+
+**📝 Question:**  
+Check if a file exists using a system call.
+
+**✅ Answer:**  
+Use `access()` system call with the `F_OK` flag to check if the file exists.
+
+</details>
+
+<details>
+<summary><strong>05_rename_file.c</strong></summary>
+
+**📝 Question:**  
+Rename a file to a new name.
+
+**✅ Answer:**  
+Use `rename("oldname", "newname")` to rename a file.
+
+</details>
+ 
 - 05_rename_file.c  
 - 06_delete_file.c  
 - 07_copy_file.c  
