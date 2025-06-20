@@ -9,20 +9,6 @@ Basic file handling programs using system calls like `open()`, `read()`, `write(
 <summary>Click to expand</summary>
 
 - 01_create_hello_file.c
--  <details>
-<summary>01_create_hello_file.c</summary>
-
-**📝 Question:**  
-Write a program to create a file and write "Hello" into it.
-
-**✅ Answer (Explanation):**  
-Uses `open()` with flags `O_CREAT | O_WRONLY`, then `write()`, and `close()`.
-
-**🔗 Code Path:**  
-`1_file_operations/01_create_hello_file.c`
-
-</details>
-
 - 02_read_file_contents.c  
 - 04_check_file_exists.c  
 - 05_rename_file.c  
