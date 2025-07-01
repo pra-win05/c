@@ -116,22 +116,50 @@ The Linux boot process consists of several stages that transform a powered-off d
 
 ---
 
-##  Boot Stages
+##  Linux Boot Stages
 
-+--------------------------+
-| 1. Power On / Reset |
-+--------------------------+
-| 2. Bootloader (e.g., U-Boot, GRUB) |
-+--------------------------+
-| 3. Linux Kernel |
-+--------------------------+
-| 4. Init System (PID 1) |
-+--------------------------+
-| 5. User Space / Shell / App |
-+--------------------------+
+┌───────────────────────────────┐
+│ 1. Power On / Reset           │
+│ - Hardware initializes        │
+│ - ROM loads first boot code   │
+└───────────────────────────────┘
 
+        ↓
 
----
+┌───────────────────────────────┐
+│ 2. Bootloader (e.g., GRUB,    │
+│    U-Boot)                    │
+│ - Initializes RAM, clocks     │
+│ - Loads kernel, dtb, initramfs│
+│ - Transfers control to kernel │
+└───────────────────────────────┘
+
+        ↓
+
+┌───────────────────────────────┐
+│ 3. Linux Kernel               │
+│ - Initializes drivers, MMU    │
+│ - Mounts root filesystem      │
+│ - Starts init system (PID 1)  │
+└───────────────────────────────┘
+
+        ↓
+
+┌───────────────────────────────┐
+│ 4. Init System (e.g., systemd,│
+│    SysV, BusyBox)             │
+│ - Starts system services      │
+│ - Mounts additional filesystems│
+└───────────────────────────────┘
+
+        ↓
+
+┌───────────────────────────────┐
+│ 5. User Space / Shell / App   │
+│ - Login shell or GUI (Desktop)│
+│ - App launch (Embedded)       │
+└───────────────────────────────┘
+
 
 ### 1️ Power-On and Reset (ROM Code)
 - Processor starts executing from a fixed ROM location.
