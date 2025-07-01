@@ -117,6 +117,7 @@ The Linux boot process consists of several stages that transform a powered-off d
 ---
 
 ##  Linux Boot Stages
+Linux Boot Stages
 
 ┌───────────────────────────────┐
 │ 1. Power On / Reset           │
@@ -124,7 +125,7 @@ The Linux boot process consists of several stages that transform a powered-off d
 │ - ROM loads first boot code   │
 └───────────────────────────────┘
 
-        ↓
+              ↓
 
 ┌───────────────────────────────┐
 │ 2. Bootloader (e.g., GRUB,    │
@@ -134,7 +135,7 @@ The Linux boot process consists of several stages that transform a powered-off d
 │ - Transfers control to kernel │
 └───────────────────────────────┘
 
-        ↓
+              ↓
 
 ┌───────────────────────────────┐
 │ 3. Linux Kernel               │
@@ -143,7 +144,7 @@ The Linux boot process consists of several stages that transform a powered-off d
 │ - Starts init system (PID 1)  │
 └───────────────────────────────┘
 
-        ↓
+              ↓
 
 ┌───────────────────────────────┐
 │ 4. Init System (e.g., systemd,│
@@ -152,7 +153,7 @@ The Linux boot process consists of several stages that transform a powered-off d
 │ - Mounts additional filesystems│
 └───────────────────────────────┘
 
-        ↓
+              ↓
 
 ┌───────────────────────────────┐
 │ 5. User Space / Shell / App   │
