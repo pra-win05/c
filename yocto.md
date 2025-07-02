@@ -285,6 +285,7 @@ Each layer usually contains:
 ---
 
 ### YOCTO PROJECT ARCHITECTURE
+![Image](https://github.com/user-attachments/assets/ede9cadf-f8c4-4920-91db-fe0b828d9167)
 
 
 
