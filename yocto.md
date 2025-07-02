@@ -184,3 +184,82 @@ Finally:
 
 ### INTRODUCTION TO YOCTO 
 ![Image](https://github.com/user-attachments/assets/86f25d42-cd86-4dc0-a0e9-b74ded2dce5a)
+
+#  Yocto Build System Overview
+
+##  What is a Build System?
+
+A **build system** automates the process of:
+
+- Taking source code  
+- Compiling it  
+- Packaging it into **binaries**  
+- Creating a bootable **Linux image** or **SDK**
+
+In the **Yocto Project**, the build system consists of tools like **BitBake**, **OpenEmbedded**, and configuration **metadata** that guide the entire build process.
+
+---
+
+##  What is OpenEmbedded?
+
+**OpenEmbedded (OE)** is a **build framework** for embedded Linux systems.
+
+- It defines **recipes** (instructions for building packages).
+- Manages **dependencies** and **cross-compilation**.
+- Provides **layers** (collections of recipes) to customize builds for different hardware.
+
+> Think of it as the "**database** + **rules**" for building embedded Linux distributions.
+
+---
+
+##  What is BitBake?
+
+**BitBake** is the **build engine** of the Yocto Project and OpenEmbedded.
+
+- It reads **metadata** (recipes, configurations).
+- Decides **what to build and how**.
+- Calls the appropriate **compiler/toolchain** to build the code.
+
+>  BitBake is like the `make` tool for Yocto — it interprets instructions and does the actual building.
+
+---
+
+##  What are Binaries?
+
+**Binaries** are the compiled output files generated from source code.
+
+Yocto/BitBake generates:
+
+- **Kernel image** (e.g., `zImage`, `Image`, `uImage`)
+- **Bootloader** (e.g., `U-Boot`)
+- **Root filesystem** (`rootfs.ext4`, `rootfs.tar.gz`)
+- **Device Tree Blobs** (`.dtb`)
+- **Kernel modules** (`.ko`)
+- **Application binaries** (`/usr/bin/myapp`)
+
+---
+
+##  How Binaries Form a Linux Image
+
+All these binaries are packed to form a **bootable embedded Linux image**, consisting of:
+
+| Component           | Description                                 |
+|---------------------|---------------------------------------------|
+| **Bootloader**       | Starts the board and loads the kernel       |
+| **Kernel**           | The Linux operating system core             |
+| **Device Tree**      | Describes the hardware layout               |
+| **Root Filesystem**  | Contains userspace apps, libraries, init scripts |
+
+> These components are bundled (or flashed separately) to boot your embedded device.
+
+---
+
+##  What is the SDK and How is it Generated?
+
+**SDK** = **Software Development Kit**
+
+Yocto can generate an SDK using the following command:
+
+```bash
+bitbake <image-name> -c populate_sdk
+
