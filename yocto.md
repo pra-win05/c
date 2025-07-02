@@ -182,3 +182,5 @@ Finally:
 
 ---
 
+### INTRODUCTION TO YOCTO 
+![Yocto Build System](https://github.com/pra-win05/c/blob/main/images/yocto-flow.png?raw=true)
