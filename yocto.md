@@ -238,28 +238,54 @@ Yocto/BitBake generates:
 - **Application binaries** (`/usr/bin/myapp`)
 
 ---
+#  Yocto Project Basic Terminology
 
-##  How Binaries Form a Linux Image
+##  General Terms
 
-All these binaries are packed to form a **bootable embedded Linux image**, consisting of:
-
-| Component           | Description                                 |
-|---------------------|---------------------------------------------|
-| **Bootloader**       | Starts the board and loads the kernel       |
-| **Kernel**           | The Linux operating system core             |
-| **Device Tree**      | Describes the hardware layout               |
-| **Root Filesystem**  | Contains userspace apps, libraries, init scripts |
-
-> These components are bundled (or flashed separately) to boot your embedded device.
+| Term            | Description |
+|------------------|-------------|
+| **Yocto Project** | An open-source project that provides templates, tools, and methods to create custom embedded Linux distributions. It’s **not a Linux distro**, but a **build system framework**. |
+| **Poky**          | The **reference distribution** of the Yocto Project. It combines **BitBake**, **OpenEmbedded-Core**, and sample configurations. Poky is the default build environment. |
+| **BitBake**       | The **build engine** (like `make`) that reads recipes and executes tasks to fetch, configure, compile, and package software. |
+| **OpenEmbedded**  | A **layered build framework** used by Yocto to organize recipes and configurations. Yocto uses **OpenEmbedded-Core (OE-Core)** as its base metadata layer. |
 
 ---
 
-##  What is the SDK and How is it Generated?
+##  Metadata Structure Terms
 
-**SDK** = **Software Development Kit**
+| Term       | Description |
+|------------|-------------|
+| **Metadata** | A collection of instructions, configurations, and descriptions that tell BitBake how to build packages. Includes `.bb`, `.bbappend`, `.inc`, `.conf`, and `layer.conf` files. |
 
-Yocto can generate an SDK using the following command:
+---
 
-```bash
-bitbake <image-name> -c populate_sdk
+##  Files in Metadata
+
+| File Type        | Description |
+|------------------|-------------|
+| **`.bb` (Recipe)**       | A recipe file that defines how to **fetch, configure, build, and install** a single software package. |
+| **`.bbclass` (Class)**   | A class file that contains **reusable functions or variables** shared across recipes. For example, `autotools.bbclass` adds default steps for Autotools-based packages. |
+| **`.bbappend` (Append)** | Used to **modify or extend** an existing recipe (usually from another layer) without editing the original `.bb` file. |
+| **`.inc` (Include)**     | An include file with **shared variables or functions**. Recipes or config files can include this using `require` or `include`. Helps avoid duplication. |
+| **`.conf` (Config)**     | Defines **build-time settings**, such as target machine, distro, or build features. Examples: `local.conf`, `distro.conf`, `machine.conf`. |
+
+---
+
+##  Layers
+
+| Term       | Description |
+|------------|-------------|
+| **Layer**  | A directory that groups related metadata (**recipes**, **configs**, **classes**). Layers help organize and isolate features (e.g., `meta-networking`, `meta-qt5`). |
+
+Each layer usually contains:
+- `recipes-*` folders (e.g., `recipes-core/`)
+- `conf/layer.conf` to register the layer
+- Optional `.bb`, `.bbappend`, `.bbclass` files
+
+---
+
+
+
+
+
 
