@@ -181,4 +181,4 @@ Finally:
 - In embedded systems, it may auto-launch a specific application (e.g., GUI, kiosk app, sensor logic)
 
 ---
-![image](https://github.com/user-attachments/assets/58990272-8837-4258-9e1c-adbf1e820b16)
+
