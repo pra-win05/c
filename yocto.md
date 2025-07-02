@@ -284,6 +284,7 @@ Each layer usually contains:
 
 ---
 
+### YOCTO PROJECT ARCHITECTURE
 
 
 
