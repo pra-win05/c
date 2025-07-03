@@ -395,11 +395,91 @@ Each layer usually contains:
 | `EXTRA_IMAGE_FEATURES` | Enable dev tools, debug symbols, or SSH in final image |
 
 ---
+##  Build Process (Blue Path – BitBake)
+
+BitBake executes a sequence of tasks to build the complete embedded Linux system. Below is a breakdown of each key step in the build pipeline:
+
+---
+
+### Source Fetching
+
+Downloads code from upstream sources or mirrors.
+
+### Patch Application
+
+Applies patches specified in recipes.
+
+### Configuration / Compile 
+
+Configures and compiles packages.
 
 
+### Output Analysis
 
+Splits output into multiple packages (e.g., binaries, dev, doc).
 
+Establishes relationships between packages.  
 
+##  Package Formats in Yocto: `.rpm`, `.deb`, `.ipk`
 
+Yocto supports multiple output formats for software packages. These are used for installation on the target device using appropriate package managers.
 
+---
+
+###  What Are They?
+
+| Format | Full Form              | Used In                   | Package Manager      |
+|--------|------------------------|---------------------------|----------------------|
+| `.rpm` | Red Hat Package Manager | Fedora, RHEL, CentOS     | `rpm`, `dnf`, `yum`  |
+| `.deb` | Debian Binary Package   | Debian, Ubuntu            | `dpkg`, `apt`        |
+| `.ipk` | Itsy Package            | OpenWrt, Embedded Systems | `opkg` (lightweight) |
+
+---
+
+###  Key Differences
+
+| Feature       | `.rpm`            | `.deb`              | `.ipk`                    |
+|---------------|-------------------|----------------------|----------------------------|
+| Target OS     | RHEL/Fedora       | Debian/Ubuntu        | OpenWrt, Embedded          |
+| Size          | Medium            | Medium               |  Very Small              |
+| Complexity    | High              | Moderate             |  Very Low                |
+| Install Speed | Slower            | Faster               |  Fastest                 |
+| Tools         | `rpm`, `dnf`      | `apt`, `dpkg`        |  `opkg`                  |
+| Best For      | Full Linux Systems| Desktop/IoT          |  Embedded Devices        |
+| Yocto Support |  Yes            |  Yes               |  Yes (default in minimal)|
+
+## Package Feeds
+
+- Collection of generated packages (`.rpm`, `.deb`, `.ipk`)
+- Created during the Yocto build process and stored in:
+##  Image Generation
+
+- Combines all needed packages into a **bootable Linux image**
+- Includes:
+  - Root filesystem (rootfs)
+  - Linux kernel
+  - Optional bootloader (e.g., U-Boot)
+- Uses the **package feeds** and `IMAGE_INSTALL` list to populate the final image
+- Output formats: `.wic`, `.ext4`, `.tar.gz`, `.sdcard.img`, etc.
+
+---
+
+##  SDK Generation
+
+Generates an **Application Development SDK** for cross-compiling applications outside the Yocto build system.
+
+Includes:
+- Cross-compiler toolchain (e.g., `arm-linux-gnueabi-gcc`)
+- Headers and libraries from the target image
+- Environment setup script (`environment-setup-*`)
+- Debugging tools (optional)
+
+ Used by developers to:
+- Build user-space applications
+- Link against the same libraries as the embedded target
+- Ensure compatibility with the target rootfs
+
+---
+
+  
 
