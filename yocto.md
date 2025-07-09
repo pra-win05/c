@@ -410,26 +410,50 @@ Example: busybox
 ```bitbake
 SRC_URI += "file://my_busybox_patch.patch"
 ```
-## patches/ directory
- What Is a Patch?
-A patch is a file that contains changes you want to apply to existing source code.
+##  `patches/` Directory in Yocto
 
-It tells the system:
-"Go to this file and make this exact change."
-Patches are used in Yocto to fix bugs, add/remove features, or customize open-source code without editing the original source manually.
+###  What Is a Patch?
 
-Enable a Custom Kernel Module
-Problem: You want the kernel to compile your own driver.
+A **patch** is a file that contains specific changes you want to apply to existing source code.
 
-Patch:
- obj-$(CONFIG_MY_DRIVER) += my_driver.o 
+> It tells the build system:  
+> _"Go to this file and make this exact change."_
 
- Add a Missing Header File
-Problem: Build error: ‘memset’ was not declared
+Patches are commonly used in Yocto to:
 
-Patch:
+-  Fix bugs
+-  Add or remove features
+-  Customize open-source code **without directly modifying the original source**
+
+---
+
+###  Real Examples of Patches
+
+---
+
+###  Enable a Custom Kernel Module
+
+**Problem**: You want the kernel to compile your own driver.
+
+**Patch Example** (added to the kernel's Makefile):
+
+```diff
+ obj-$(CONFIG_MY_DRIVER) += my_driver.o
+```
+
+---
+
+###  Add a Missing Header File
+
+**Problem**: Build error — `‘memset’ was not declared`
+
+**Patch** (added to `main.c`):
+
+```diff
  #include <stdio.h>
-+#include <string.h>  
++#include <string.h>  //  Added this to fix the error
+```
+
  
 ---
 ## Machine(BSP CONFIGURATION)
