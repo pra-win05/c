@@ -477,6 +477,22 @@ Kernel configuration
 Device tree files
 
 
+##  Example: Raspberry Pi 4 (64-bit)
+
+```conf
+# File: meta-raspberrypi/conf/machine/raspberrypi4-64.conf
+
+DESCRIPTION = "Raspberry Pi 4 64-bit"
+require conf/machine/include/rpi-base.inc
+
+KERNEL_DEVICETREE = "bcm2711-rpi-4-b.dtb"
+
+UBOOT_MACHINE = "rpi_4_defconfig"
+
+SERIAL_CONSOLE = "115200 ttyAMA0"
+```
+
+
 ##  Policy Configuration Examples in Yocto
 
 ---
