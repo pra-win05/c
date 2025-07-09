@@ -656,6 +656,68 @@ tmp/deploy/images/<machine>/core-image-minimal-<machine>.wic
 
 This `.wic` file can be directly written to an SD card or eMMC for booting your embedded device.
 
+##  What Is the SDK in Yocto?
+
+The **SDK (Software Development Kit)** is a standalone toolchain and environment that allows you to build applications for your embedded image **outside** of Yocto.
+
+###  It includes:
+-  Cross-compiler (GCC, binutils)
+-  Libraries and headers for the target system
+-  Environment setup script to configure the build environment
+
+---
+
+## ⚙️ How SDK Is Generated from Package Feeds
+
+---
+
+###  1. BitBake Builds Packages First
+
+All the packages (`.ipk`, `.deb`, `.rpm`) are built using BitBake recipes:
+
+```bash
+bitbake core-image-minimal
+```
+
+This stores binary packages in:
+
+```bash
+tmp/deploy/ipk/
+```
+
+These packages include:
+
+-  Libraries (e.g., `libc`, `libssl`)
+-  Binaries (e.g., `busybox`, `dropbear`)
+-  Dev files (e.g., `libssl-dev`, `zlib-dev`)
+
+ These **dev packages** are used when generating the SDK.
+
+---
+
+###  2. Generate the SDK
+
+You generate the SDK with the following command:
+
+```bash
+bitbake core-image-minimal -c populate_sdk
+```
+
+This will:
+
+- Build a cross-toolchain
+- Collect all necessary headers and libraries from the package feeds
+- Generate an SDK installer `.sh` script
+- Include an environment setup script
+
+---
+
+ **SDK Output Location**:
+
+```bash
+tmp/deploy/sdk/
+└── poky-glibc-x86_64-core-image-minimal-aarch64-toolchain-<date>.sh
+```
 
 ---
 
