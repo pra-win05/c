@@ -355,7 +355,7 @@ MACHINE ?= "raspberrypi4-64"
 DL_DIR ?= "${TOPDIR}/downloads"
 SSTATE_DIR ?= "${TOPDIR}/sstate-cache"
 
-# Use custom mirrors before trying the original sources
+# Use downloaded mirrors before trying the original sources
 PREMIRRORS_prepend = "\
 git://.*/.*  http://my-mirror.local/git/ \n \
 http://.*/.*  http://my-mirror.local/http/ \
