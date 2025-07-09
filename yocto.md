@@ -301,7 +301,7 @@ This tells BitBake to fetch the source code from the specified Git repository us
 Once a Git Repo is Downloaded — Where Is It Stored?
 When BitBake fetches a Git repository (as defined in SRC_URI), it stores it in a structured subdirectory inside DL_DIR (typically downloads/).
 
-📁 Git Repository Storage Path
+ Git Repository Storage Path
 Yocto stores cloned Git repositories in:
 ```bash
 <build-dir>/downloads/git2/<sanitized-git-url>/
@@ -324,24 +324,33 @@ ERROR: Fetcher failure for URL: 'git://github.com/uclibc/uclibc-ng.git;protocol=
 ERROR: Unable to fetch URL from any source.
 
 ```
-## User Configuration
- Path:
- ```bash
- build/conf/local.conf
+##  User Configuration
+
+###  Path:
+```bash
+build/conf/local.conf
 ```
- Role:
 
-Set target machine:
-MACHINE = "raspberrypi4-64"
+---
 
-Configure download paths:
-DL_DIR, SSTATE_DIR
+###  Role:
 
-Define mirror behavior:
-PREMIRRORS
+-  **Set target machine:**
+  ```conf
+  MACHINE = "raspberrypi4-64"
+  ```
 
-Set build parallelism:
-BB_NUMBER_THREADS, PARALLEL_MAKE
+-  **Configure download paths:**
+  - `DL_DIR` – Directory where downloaded source archives are stored
+  - `SSTATE_DIR` – Shared state cache location
+
+-  **Define mirror behavior:**
+  - `PREMIRRORS` – Fetch from alternate sources before trying upstream
+
+-  **Set build parallelism:**
+  - `BB_NUMBER_THREADS` – Max BitBake tasks to run in parallel
+  - `PARALLEL_MAKE` – Threads used by `make` within a single task
+
 
 ---
  ## Sample local.conf (Generated)
