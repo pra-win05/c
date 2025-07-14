@@ -339,10 +339,6 @@ This file customizes how BitBake builds your target image.
 Defines the target hardware platform.
 > Example: `raspberrypi4`, `quectel-sbc`, `beaglebone`, etc.
 
-###  `DISTRO`
-Specifies the Linux distribution to build.
-> Example: `poky`, `oe-lite`, `custom-distro`
-
 ###  `PACKAGE_CLASSES`
 Sets the packaging format used in the build.
 > Supported formats: `ipk`, `deb`, `rpm`
@@ -362,7 +358,6 @@ Improves build performance by utilizing multiple CPU cores.
 
 ```conf
 MACHINE = "raspberrypi4"
-DISTRO = "poky"
 PACKAGE_CLASSES = "package_ipk"
 
 EXTRA_IMAGE_FEATURES = "debug-tweaks ssh-server-dropbear"
