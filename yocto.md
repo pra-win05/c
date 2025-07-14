@@ -404,14 +404,29 @@ Here’s a `.bb` recipe for the **nano** text editor **with a patch** included:
 ```bitbake
 SUMMARY = "Nano is a small and friendly text editor"
 LICENSE = "GPL-3.0-or-later"
+LIC_FILES_CHKSUM = "file://COPYING;md5=ccf4f2a7fc04f033f79f403db35f5c7b"
+
 SRC_URI = "https://nano-editor.org/dist/v5/nano-${PV}.tar.xz \
            file://fix-tab-width.patch"
 
+SRC_URI[sha256sum] = "6f1f4fd705e942e5104294c186be7ae2a8d831ee89fc63be4e7c2f79f38b3487"
+
 inherit autotools
 
+# Optional: apply patch if needed
+do_patch[depends] += "patch-native:do_populate_sysroot"
+
+# Compilation step (usually autotools handles this, but here for clarity)
+do_compile() {
+    oe_runmake
+}
+
+# Installation step
 do_install() {
     install -d ${D}${bindir}
     install -m 0755 src/nano ${D}${bindir}/nano
+}
+
 }
 
  ```
