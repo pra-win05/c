@@ -324,55 +324,53 @@ ERROR: Fetcher failure for URL: 'git://github.com/uclibc/uclibc-ng.git;protocol=
 ERROR: Unable to fetch URL from any source.
 
 ```
-##  User Configuration
+# 1. User Configuration in Yocto
 
-###  Path:
-```bash
-build/conf/local.conf
-```
+##  What is it?
+
+User configuration refers to settings defined in the `conf/local.conf` file of your Yocto build environment.  
+This file customizes how BitBake builds your target image.
+
+---
+
+##  Key Things Defined
+
+###  `MACHINE`
+Defines the target hardware platform.
+> Example: `raspberrypi4`, `quectel-sbc`, `beaglebone`, etc.
+
+###  `DISTRO`
+Specifies the Linux distribution to build.
+> Example: `poky`, `oe-lite`, `custom-distro`
+
+###  `PACKAGE_CLASSES`
+Sets the packaging format used in the build.
+> Supported formats: `ipk`, `deb`, `rpm`
+
+###  `EXTRA_IMAGE_FEATURES`, `IMAGE_INSTALL_append`
+Adds or customizes packages and features in the image.
+> Example: Enable SSH server, debug tools, etc.
+
+###  Parallelism
+Improves build performance by utilizing multiple CPU cores.
+- `BB_NUMBER_THREADS`: BitBake parallelism
+- `PARALLEL_MAKE`: Makefile parallelism
 
 ---
 
-###  Role:
+##  Example `local.conf` Snippet
 
--  **Set target machine:**
-  ```conf
-  MACHINE = "raspberrypi4-64"
-  ```
+```conf
+MACHINE = "raspberrypi4"
+DISTRO = "poky"
+PACKAGE_CLASSES = "package_ipk"
 
--  **Configure download paths:**
-  - `DL_DIR` – Directory where downloaded source archives are stored
-  - `SSTATE_DIR` – Shared state cache location
+EXTRA_IMAGE_FEATURES = "debug-tweaks ssh-server-dropbear"
+IMAGE_INSTALL_append = " nano i2c-tools"
 
--  **Define mirror behavior:**
-  - `PREMIRRORS` – Fetch from alternate sources before trying upstream
+BB_NUMBER_THREADS = "8"
+PARALLEL_MAKE = "-j8"
 
--  **Set build parallelism:**
-  - `BB_NUMBER_THREADS` – Max BitBake tasks to run in parallel
-  - `PARALLEL_MAKE` – Threads used by `make` within a single task
-
-
----
- ## Sample local.conf (Generated)
- ```bitbake
-# Yocto Project Local Configuration File
-
-# Set target machine
-MACHINE ?= "raspberrypi4-64"
-
-# Set download and sstate-cache directories
-DL_DIR ?= "${TOPDIR}/downloads"
-SSTATE_DIR ?= "${TOPDIR}/sstate-cache"
-
-# Use downloaded mirrors before trying the original sources
-PREMIRRORS_prepend = "\
-git://.*/.*  http://my-mirror.local/git/ \n \
-http://.*/.*  http://my-mirror.local/http/ \
-"
-
-# Set build parallelism
-BB_NUMBER_THREADS = "4"
-PARALLEL_MAKE = "-j4"
 ```
 ## What is Metadata in Yocto?
 In Yocto, metadata refers to all the configuration files, recipes, and patches that describe:
