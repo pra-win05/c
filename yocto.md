@@ -483,14 +483,11 @@ ABI = "aarch64"
 
 ## 🧾 What is Policy Configuration?
 
-Policy configuration in Yocto **defines how the build system behaves at a high level**, especially for a distribution (distro).  
-It sets **rules**, **preferences**, and **global policies** that affect:
+Policy configuration in Yocto defines the high-level rules and preferences for how your Linux system is built — like which package format to use, what features to include (e.g., systemd, Wi-Fi), which licenses are allowed, and how the toolchain should behave.
 
 - Packaging
-- Init system
 - Licensing
 - SDK/toolchain behavior
-- Security settings
 
 >  Think of it as the place where you say:  
 > "All my images should use `systemd`, package as `.ipk`, and avoid GPLv3."
