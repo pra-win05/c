@@ -838,6 +838,104 @@ tmp/deploy/sdk/
 
   ![Screenshot 2025-07-06 163621](https://github.com/user-attachments/assets/e1042884-e44f-4990-a646-607ac78a1564)
 
+## AppArmor Error While Bitbaking a Yocto Recipe
+
+An **AppArmor error while bitbaking a Yocto recipe** usually indicates that your system’s **AppArmor security policies** are interfering with some operations that the **BitBake build system** is trying to perform — especially operations that:
+
+- Access unusual directories
+- Use `pseudo` (fakeroot)
+- Use `chroot`
+- Use custom sysroots
+
+These restrictions may lead to permission denials, build failures, or unexpected errors during the Yocto build process.
+
+### Example Error Messages
+
+You might encounter messages like:
+
+- `apparmor="DENIED" operation="open" ...`
+- `audit[bitbake]: type=1400 audit(...) ...`
+- `Permission denied due to AppArmor profile ...`
+
+###  Common Fixes
+
+```bash
+sudo systemctl stop apparmor
+sudo systemctl disable apparmor
+```
+##  Steps to Permanently Disable AppArmor via GRUB
+
+This disables **AppArmor** from **boot time**.
+
+---
+
+### 1. Edit the GRUB config:
+
+```bash
+sudo nano /etc/default/grub
+```
+
+Look for the line:
+
+```bash
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
+```
+
+Modify it to:
+
+```bash
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash apparmor=0"
+```
+
+>  `apparmor=0` disables AppArmor at kernel boot time.
+
+---
+
+### 2. Update GRUB:
+
+Run the following command to apply the change:
+
+```bash
+sudo update-grub
+```
+
+---
+
+### 3. Reboot your system:
+
+```bash
+sudo reboot
+```
+
+---
+
+### 4. Confirm AppArmor is Disabled:
+
+After reboot, verify the AppArmor status:
+
+```bash
+sudo aa-status
+```
+
+It should return:
+
+```
+apparmor module is not loaded.
+```
+
+Alternatively, check kernel parameters:
+
+```bash
+cat /proc/cmdline
+```
+
+Look for `apparmor=0` in the output.
+
+---
+
+>  You have now disabled AppArmor permanently via GRUB.
+
+
   ____________________________________________________________________________________________________________________
 
  
