@@ -824,7 +824,7 @@ tmp/deploy/sdk/
 
    
 - Let's take an example to do bitbake for an software package
-  ### Bitbake a software package(Drop bear):
+  ### Bitbake a software package(drop bear):
 - The Dropbear recipe is located in: `meta/recipe-core/dropbear`
 - Run the command to build it: `bitbake dropbear`
 - The following steps are executed internally from the recipe file (e.g., dropbear_2022.83.bb):  
