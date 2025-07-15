@@ -935,7 +935,9 @@ Look for `apparmor=0` in the output.
 
 >  You have now disabled AppArmor permanently via GRUB.
 
+## PATHS FOR NANO 
 
+===> poky/meta-openembedded/meta-oe/recipes-support/nano
   ____________________________________________________________________________________________________________________
 
 
