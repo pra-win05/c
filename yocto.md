@@ -938,6 +938,7 @@ Look for `apparmor=0` in the output.
 ## PATHS FOR NANO 
 
 ===> poky/meta-openembedded/meta-oe/recipes-support/nano
+--->poky/meta/classes/autotools.bbclass
   ____________________________________________________________________________________________________________________
 
 
