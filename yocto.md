@@ -1016,6 +1016,68 @@ poky/
 ├── meta-mycustom/         ← [Your new custom layer]
 ├── build/                 ← [Your build directory]
 └── ...
+```
 
+#  How to Create a Custom Recipe in Yocto and Add It to an Image
 
+##  1. Create a Custom Layer (Already Done)
+
+## Create a New Recipe in Your Custom Layer
+We will create a simple C program called helloworld.
+##  Folder Structure:
+```
+meta-mycustomlayer/
+├── conf/
+│ └── layer.conf
+├── recipes-example/
+│ └── helloworld/
+│ ├── helloworld_1.0.bb
+│ └── files/
+│ └── helloworld.c
+```
+#  Create a Custom Recipe in Yocto and Add It to an Image
+
+---
+
+##  helloworld.c
+
+```c
+#include <stdio.h>
+
+int main() {
+    printf("Hello from Yocto custom recipe!\n");
+    return 0;
+}
+##  Create the BitBake Recipe
+```
+
+### helloworld_1.0.bb
+
+```bitbake
+SUMMARY = "Simple Hello World app"
+DESCRIPTION = "This is a simple hello world C application"
+LICENSE = "MIT"
+LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835c1d3c5c70ffb9797d8d2e2c9f09b"
+
+SRC_URI = "file://helloworld.c"
+
+S = "${WORKDIR}"
+
+do_compile() {
+    ${CC} ${CFLAGS} ${LDFLAGS} -o helloworld helloworld.c
+}
+
+do_install() {
+    install -d ${D}${bindir}
+    install -m 0755 helloworld ${D}${bindir}
+}
+```
+##  Create or Modify a Custom Image Recipe
+
+###  Create the image recipe file:
+`
+```bitbake
+require recipes-core/images/core-image-minimal.bb
+
+IMAGE_INSTALL += "helloworld"
 
