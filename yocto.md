@@ -1080,4 +1080,95 @@ do_install() {
 require recipes-core/images/core-image-minimal.bb
 
 IMAGE_INSTALL += "helloworld"
+```
+##  Step 1: Add Qt6 to Your Yocto Build
+
+Ensure your Yocto setup supports **Qt6**:
+
+- Use **Yocto Hardknott** or newer.
+- Add the `meta-qt6` layer to your build environment.
+
+###  Clone the `meta-qt6` Layer
+
+```bash
+git clone https://github.com/meta-qt6/meta-qt6.git
+```
+##  Add `meta-qt6` to `bblayers.conf`
+
+Edit your `conf/bblayers.conf` file and append the path to `meta-qt6`:
+
+```conf
+BBLAYERS += "path/to/meta-qt6"
+```
+##  Create a Qt GUI App (Basic Example)
+
+**File: `hellogui.cpp`**
+
+```cpp
+#include <QApplication>
+#include <QLabel>
+
+int main(int argc, char *argv[]) {
+    QApplication app(argc, argv);
+
+    QLabel label("Hello, Prawin!");
+    label.resize(200, 100);
+
+    // Set pink background and black text
+    label.setStyleSheet("QLabel { background-color: pink; color: black; font-size: 20px; font-weight: bold; }");
+
+    label.setAlignment(Qt::AlignCenter); // Center the text
+    label.show();
+
+    return app.exec();
+}
+```
+##  Custom Layer Directory Structure
+
+Put this inside your custom layer `meta-mycustomlayer`:
+```
+meta-mycustomlayer/
+└── recipes-qt/
+└── hellogui/
+├── hellogui_1.0.bb
+└── files/
+└── hellogui.cpp
+```
+##  BitBake Recipe for Qt GUI App
+
+**File:** `hellogui_1.0.bb`
+
+```bitbake
+SUMMARY = "Simple Qt GUI showing name"
+LICENSE = "MIT"
+LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835c1d3c5c70ffb9797d8d2e2c9f09b"
+
+DEPENDS += "qtbase"
+
+SRC_URI = "file://hellogui.cpp"
+
+S = "${WORKDIR}"
+
+inherit qt6
+
+do_compile() {
+    ${CXX} ${CXXFLAGS} ${LDFLAGS} -fPIC -o hellogui hellogui.cpp \
+    `${OE_QMAKE_PATH_HOST_BINS}/qt-cmake -find-package Qt6Widgets Qt6`
+}
+
+do_install() {
+    install -d ${D}${bindir}
+    install -m 0755 hellogui ${D}${bindir}
+}
+```
+##  Include GUI App in Predefined Image Recipe
+
+To include the `hellogui` Qt GUI application in a **predefined image recipe**, such as `core-image-minimal`, **do not create a new custom image recipe**.  
+Instead, **append the required packages** in your local configuration file (`local.conf`):
+
+###  Step: Edit `conf/local.conf`
+
+```bitbake
+IMAGE_INSTALL:append = " hellogui qtbase"
+```
 
