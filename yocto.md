@@ -794,7 +794,12 @@ tmp/deploy/sdk/
 - Install visual studio and create workspace for our project
 ### Build host packages:
 - You must install essential host packages on your build host. The following command installs the host packages based on an Ubuntu distribution:
-- `sudo apt-get install build-essential chrpath cpio debianutils diffstat file gawk gcc git iputils-ping libacl1 liblz4-tool locales python3 python3-git python3-jinja2 python3-pexpect python3-pip python3-subunit socat texinfo unzip wget xz-utils zstd`
+- `sudo apt update
+sudo apt install gawk wget git-core diffstat unzip texinfo gcc-multilib \
+     build-essential chrpath socat cpio python3 python3-pip python3-pexpect \
+     xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa \
+     libsdl1.2-dev pylint xterm curl
+`
 ## Yocto project basic configuration and exploring the poky source
 - The Yocto Project uses bitbake to process software packages and generate images.
 
