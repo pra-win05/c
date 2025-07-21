@@ -1023,6 +1023,9 @@ poky/
 └── ...
 ```
 
+![WhatsApp Image 2025-07-21 at 09 49 27_c7fda8f6](https://github.com/user-attachments/assets/843cfe5c-0bb9-4e4f-a685-6d5a2d9c9507)
+
+
 #  How to Create a Custom Recipe in Yocto and Add It to an Image
 
 ##  1. Create a Custom Layer (Already Done)
